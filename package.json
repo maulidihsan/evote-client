@@ -1,0 +1,18 @@
+{
+  "name": "e-vote",
+  "version": "1.0.0",
+  "description": "Aplikasi Pemilu KMTETI 2017",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "maulid",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "1.7.9"
+  },
+  "dependencies": {
+    "request": "^2.83.0"
+  }
+}

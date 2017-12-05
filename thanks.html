@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/thanks.css" charset="utf-8">
+	<title>Terima Kasih \ PEMILU KMTETi</title>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="./js/jquery-3.2.1.js"></script>
+	<script src="./js/bootstrap.js"></script>
+	<script>if (window.module) module = window.module;</script>
+ </head>
+ <body>
+	<div class=button>
+        <button id="logout" type="input" class="btn btn-danger">Log Out</button>
+    </div>
+	<script>
+		var {ipcRenderer, remote} = require('electron');  
+		var main = remote.require("./main.js");
+		$("#logout").click(function(e){
+			e.preventDefault();
+			ipcRenderer.send('logout');
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	 
+	<link rel="stylesheet" href="css/main.css" charset="utf-8">
+	<title>Login \ PEMILU KMTETi</title>
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="./js/jquery-3.2.1.js"></script>
+	<script src="./js/bootstrap.js"></script>
+	<script>if (window.module) module = window.module;</script>
+ </head>
+ <body>
+	<center>
+	<div id="box">
+		<div id="logo1"><img src="image/logo1.png"></div>
+		<div id="logo2"><img src="image/logo2.png"></div>
+		<br><div id="judul1">PEMILU KMTETi</div><br>
+		<input id="nim" type="text" name="username" placeholder="Masukkan NIM" required><br>
+		<input id="password" type="password" name="password" placeholder="Masukkan Password" required>
+		<button id="login" type="submit" name="submit">Log In</button>
+	</div></center>
+	<script>
+		var {ipcRenderer, remote} = require('electron');  
+		var main = remote.require("./main.js");
+		$("#login").click(function(e){
+			e.preventDefault();
+			var nim = $("#nim").val();
+			var password = $("#password").val();
+			if(nim.length === 0 || password.length === 0){
+				alert('Harap isi nim/password')
+			}
+			else{
+				var postData = {
+					nim: nim,
+					password: password
+				}
+				ipcRenderer.send('login', postData);
+			}
+		});
+		ipcRenderer.on('login-reply', (event, arg) => {  
+			alert(arg);
+			$('#nim').val('');
+			$('#password').val('');
+		});
+		ipcRenderer.on('error', (event, arg) => {
+			alert(arg);
+			$('#nim').val('');
+			$('#password').val('');
+		});
+	</script>
+</body>
+</html>

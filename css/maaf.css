@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+    font-weight:300;
+    font-family:'Roboto', sans-serif;
+    font-size:15px;
+    line-height:1.42857143;
+    margin: 0;
+    text-align:center;
+    background:url('../image/sorry.png');
+    background-size: cover;
+}
+
+.btn-danger {
+    position: absolute;
+    top: 80%;
+    left: 80%;
+    font-size: 28px;
+    padding-right: 30px;
+    padding-left: 30px; 
+    background: #C62828;
+}
+
+.btn-danger:hover {
+    background: #B71C1C;
+}

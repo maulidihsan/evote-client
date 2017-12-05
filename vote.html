@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<head>
+	<title>Vote \ PEMILU KMTETi</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./css/vote.css">
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<script src="./js/jquery-3.2.1.js"></script>
+	<script src="./js/bootstrap.js"></script>
+	<script src="./js/main.js"></script>
+	<script>if (window.module) module = window.module;</script>
+</head>
+<body>
+
+	<body>
+		
+		<div id="mycarousel" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+			  <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+			  <li data-target="#mycarousel" data-slide-to="1"></li>
+			  <li data-target="#mycarousel" data-slide-to="2"></li>
+			</ol>
+		  
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+			  <div id="1" class="item active">
+				  <img src="./image/arkka.png" data-color="lightblue" alt="First Image">
+				  <div class="custom-caption">
+					  <h4>
+						  Visi:
+						</h4>
+						<div class="content">
+								<div class="visi-text">Menjadikan KMTETI sebagai wadah untuk mempererat persatuan dan kekeluargaan warga DTETI, ajang religius, prestasif, kontributif, dan sinergis dengan tetap menganut asas profesionalisme.</div>
+						</div>
+					  	
+						<button class="btn btn-info pull-right misi" style="margin-right: 40px;">Lihat Misi</button>
+						<button class="btn btn-info pull-right visi" style="margin-right: 40px;">Lihat Visi</button>
+				  </div>
+				  <div class="carousel-caption">
+					  <button type="submit" class="btn btn-danger pilih">PILIH</button>
+				  </div>
+			  </div>
+			  <div id="2" class="item">
+				  <img src="./image/adib.png" data-color="firebrick" alt="Second Image">
+				  <div class="custom-caption">
+						<h4>
+							Visi:
+						</h4>
+							<div class="content">
+									<div class="visi-text">Menjadikan KMTETI sebagai organisasi yang harmonis, apresiatif, serta dapat menjadi wadah bagi mahasiswa DTETI untuk berkontribusi di lingkup internal maupun eksternal DTETI.</div>
+							</div>
+							
+							<button class="btn btn-info pull-right misi" style="margin-right: 40px;">Lihat Misi</button>
+							<button class="btn btn-info pull-right visi" style="margin-right: 40px;">Lihat Visi</button>
+					</div>
+				  <div class="carousel-caption">
+							<button type="submit" class="btn btn-danger pilih">PILIH</button>
+				  </div>
+			  </div>
+			  <div id="3" class="item">
+				  <img src="./image/ecak.png" data-color="violet" alt="Third Image">
+				  <div class="custom-caption">
+						<h4>
+							Visi:
+						</h4>
+						<div class="content">
+								<div class="visi-text">Mewujudkan KMTETI sebagai organisasi yang harmonis, kontributif, aspiratif, dinamis, solutif, dan berintegritas yang berdasar pada nilai-nilai Ketuhanan, profesionalitas, dan kekeluargaan.</div>
+						</div>
+						<button class="btn btn-info pull-right misi" style="margin-right: 40px;">Lihat Misi</button>
+						<button class="btn btn-info pull-right visi" style="margin-right: 40px;">Lihat Visi</button>
+					</div>
+				  <div class="carousel-caption">
+							<button type="submit" class="btn btn-danger pilih">PILIH</button>
+				  </div>
+			  </div>
+			</div>
+		  
+			<!-- Controls -->
+			<a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
+			  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			  <span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
+			  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			  <span class="sr-only">Next</span>
+			</a>
+			</div>
+			
+
+		<script>
+			var {ipcRenderer, remote} = require('electron');  
+			var main = remote.require("./main.js");
+			$(".pilih").click(function(e){
+				e.preventDefault();
+				var postData = {
+					nim: remote.getGlobal('sharedObj').nim,
+					token: remote.getGlobal('sharedObj').token,
+					no_urut: $(this).parent().parent().attr('id')
+				}
+				ipcRenderer.send('vote', postData);
+			});
+
+			ipcRenderer.on('vote-reply', (event, arg) => {  
+				alert(arg);
+			});
+			ipcRenderer.on('error', (event, arg) => {
+				alert(arg);
+				$('#nim').val('');
+				$('#password').val('');
+			});
+		</script>
+		<script>
+			var visi = [null, 1, 2, 3];
+				visi[1] = `<div class="visi-text">Menjadikan KMTETI sebagai wadah untuk mempererat persatuan dan kekeluargaan warga DTETI, ajang religius, prestasif, kontributif, dan sinergis dengan tetap menganut asas profesionalisme.</div>`;
+				visi[2] = `<div class="visi-text">Menjadikan KMTETI sebagai organisasi yang harmonis, apresiatif, serta dapat menjadi wadah bagi mahasiswa DTETI untuk berkontribusi di lingkup internal maupun eksternal DTETI.</div>`;
+				visi[3] = `<div class="visi-text">Mewujudkan KMTETI sebagai organisasi yang harmonis, kontributif, aspiratif, dinamis, solutif, dan berintegritas yang berdasar pada nilai-nilai Ketuhanan, profesionalitas, dan kekeluargaan.</div>`;
+			
+				var misi = [null, 1, 2, 3];
+				misi[1] = 
+					`<div class="misi-text"><ol>` +
+					`<li>`+`Menumbuhkan pribadi yang berpegang teguh pada keimanan dan ketaqwaan kepada Tuhan Yang Maha Esa.` + `</li>` + 
+					`<li>`+`Turut berperan aktif sebagai organisasi yang menjaga stabilitas lingkungan di dalam maupun di luar DTETI.` + `</li>` +
+					`<li>`+`Mengoptimalkan fungsi dan peranan pengurus KMTETI sehingga muncul hakekat kekeluargaan, serta meningkatkan kinerja guna menjadikan KMTETI sebagai organisasi yang dapat memberikan perubahan yang optimal.` + `</li>` + 
+					`<li>`+`Menjaring aspirasi dari semua elemen warga DTETI agar tercipta suasana kerja yang kondusif, komunikatif dan harmonis di dalam setiap kepengurusan.` + `</li>` + 
+					`<li>`+`Mewujudkan KMTETI yang produktif, kreatif dan prestasif di internal maupun eksternal dengan penekanan keseimbangan antara kekeluargaan dan  profesional sehingga terciptanya organisasi yang berkarakter.` + `</li>` + 
+					`<li>`+`Mengembangkan relasi dengan berbagai instansi dan organisasi mahasiswa lainnya di dalam maupun luar kampus yang bertujuan untuk membina hubungan baik dengan aspek-aspek dari dalam dan luar DTETI.` + `</li>` +  
+					`<li>`+`Mengembangkan kreatifitas, minat, bakat dan potensi seluruh mahasiswa DTETI melalui kegiatan pengembangan kemampuan dan rasa tanggung jawab serta mengembangkan persiapan karir yang dikemas dalam suasana nyaman dan kondusif.` + `</li>` +  
+					`<li>`+`Mempersiapkan kader-kader pengurus untuk melanjutkan kepengurusan KMTETI dengan tetap berpegang teguh pada nilai-nilai intelektual, kualitas, kenetralan, dan kapabilitas individu masing masing.`+ `</li></ol></ div>`;
+				misi[2] = 
+				`<div class="misi-text"><ol>` +
+					`<li>`+`Meningkatkan keakraban dan menanamkan rasa saling menghargai dan bertanggung jawab.` + `</li>` + 
+					`<li>`+`Meningkatkan kemampuan mahasiswa DTETI UGM baik dalam softskill maupun hardskill.` + `</li>` +
+					`<li>`+`Mempererat hubungan antar elemen DTETI UGM dan menjaga hubungan baik dengan lembaga lain.` + `</li>` + 
+					`<li>`+`Memaksimalkan kerjasama antar divisi KMTETI.` + `</li>` + 
+					`<li>`+`Mengembangkan dan memaksimalkan program kerja yang sudah ada.` + `</li></ol></ div>`;
+				misi[3]	=
+				`<div class="misi-text"><ol>` +
+					`<li>`+`Membangun jalinan persaudaraan yang solid antar pengurus dan warga KMTETI, serta menjaga kontribusi dan citra positif KMTETI dalam lingkup internal maupun eksternal.` + `</li>` + 
+					`<li>`+`Membawa seluruh pengurus KMTETI menjunjung tinggi profesionalisme dan komitmen dalam
+berbagai situasi, sehingga KMTETI dapat melayani seluruh kebutuhan warga KMTETI.
+` + `</li>` +
+					`<li>`+`Memperbaiki dan menjaga kualitas alur kaderisasi KMTETI sehingga tercipta kader-kader KMTETI yang berkualitas, berkarakter, dan dapat diandalkan.` + `</li>` + 
+					`<li>`+`Melakukan perbaikan administrasi dan birokrasi KMTETI agar efektif dan efisien.` + `</li>` + 
+					`<li>`+`Terus melakukan evaluasi dan menghadirkan inovasi untuk setiap program kerja KMTETI.` + `</li>` + 
+					`<li>`+`Menyediakan sarana pengembangan kualitas keilmuan, kreativitas, minat, dan bakat bagi seluruh warga KMTETI.` + `</li>` +  
+					`<li>`+`Melaksanakan asas profesionalisme dan kekeluargaan secara berimbang, sehingga tercipta kepengurusan KMTETI yang dinamis, adil, dan berintegritas.` + `</li>` +  
+					`<li>`+`Menjadikan KMTETI sebagai mitra strategis pihak DTETI dengan mengedepankan kerja sama yang saling menguntungkan kedua belah pihak.` + `</li>` +
+					`<li>`+`Membangun kerja sama yang sinergis antara KMTETI dengan BSO (Badan Semi Otonom) yang ada
+di DTETI, sehingga produktivitas dan prestasi warga KMTETI semakin meningkat.
+` + `</li>` +
+					`<li>`+`Menyediakan wadah aspirasi bagi seluruh warga DTETI melalui berbagai media, sehingga KMTETI dapat menjadi organisasi yang evaluatif dan informatif bagi seluruh warga DTETI.`+ `</li></ol></ div>`;
+			
+			$( document ).ready(function() {
+				$(".visi").hide();
+				$('.carousel').carousel({
+					interval: false
+				});
+				setTimeout(function(){ ipcRenderer.send('logout'); }, 600000);
+			});
+
+			$(".misi").click(function(){
+				var id = $(this).parent().parent().attr('id');
+				$(this).siblings(".content").html(misi[id]);
+				$(this).siblings("h4").text('Misi');
+				$(this).siblings(".visi").show();
+				$(this).hide();
+			});
+
+			$(".visi").click(function(){
+				var id = $(this).parent().parent().attr('id');
+				$(this).siblings(".content").html(visi[id]);
+				$(this).siblings("h4").text('Visi');
+				$(this).siblings(".misi").show();
+				$(this).hide();
+			})
+		</script>
+		
+
+</body>
+</html>
